@@ -1,0 +1,16 @@
+{
+  "desktop": "1536x1024",
+  "mobile": "390x844",
+  "page_errors": [],
+  "checks": [
+    "1000 sample rows",
+    "original evidence in downloaded report",
+    "search one evidence ID",
+    "CSV export",
+    "annotation export",
+    "brand filter updates count",
+    "uploaded CSV reaches backend and changes rows",
+    "mobile no document overflow"
+  ],
+  "browser": "Installed Microsoft Edge via Playwright; built-in browser unavailable"
+}

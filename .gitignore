@@ -1,0 +1,32 @@
+# 凭据：任何情况下都不进仓库
+.env
+.env.local
+*.env.local
+.streamlit/secrets.toml
+
+# 运行时状态、业务数据库、预算账本、备份
+production/runtime/
+production/work/
+production/var/
+*.sqlite3
+*.sqlite3-journal
+*.pid
+
+# 日志
+*.log
+outputs/*.log
+
+# 依赖与构建产物
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+production/frontend/dist/
+qa-results/
+
+# 编辑器与系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
