@@ -13,8 +13,16 @@ AMBIENT = re.compile(
     r"\s*<in-app-browser-context\b[^>]*>.*?</in-app-browser-context>\s*",
     re.DOTALL,
 )
+RECOMMENDED_PLUGINS = re.compile(
+    r"\s*<recommended_plugins>.*?</recommended_plugins>\s*",
+    re.DOTALL,
+)
+ENVIRONMENT_CONTEXT = re.compile(
+    r"\s*<environment_context>.*?</environment_context>\s*",
+    re.DOTALL,
+)
 AGENTS_BLOCK = re.compile(
-    r"\s*# AGENTS\.md instructions\s*<INSTRUCTIONS>.*?</INSTRUCTIONS>.*?</environment_context>\s*",
+    r"\s*# AGENTS\.md instructions\s*<INSTRUCTIONS>.*?</INSTRUCTIONS>\s*",
     re.DOTALL,
 )
 
@@ -28,6 +36,8 @@ def visible_text(content: list[dict]) -> str:
             parts.append("[图片附件]")
     text = "\n\n".join(parts)
     text = AMBIENT.sub("\n", text)
+    text = RECOMMENDED_PLUGINS.sub("\n", text)
+    text = ENVIRONMENT_CONTEXT.sub("\n", text)
     text = AGENTS_BLOCK.sub("\n", text)
     text = text.replace("&#x20;", " ")
     return text.strip()
