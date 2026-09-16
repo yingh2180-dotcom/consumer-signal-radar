@@ -1,16 +1,21 @@
 {
-  "desktop": "1536x1024",
-  "mobile": "390x844",
+  "verified_at": "2026-09-16T08:04:47.692906+00:00",
+  "url": "http://127.0.0.1:18523",
+  "browser": "Installed Microsoft Edge via Playwright",
+  "viewports": [
+    "1440x1000",
+    "390x844"
+  ],
   "page_errors": [],
   "checks": [
-    "1000 sample rows",
-    "original evidence in downloaded report",
-    "search one evidence ID",
-    "CSV export",
-    "annotation export",
-    "brand filter updates count",
-    "uploaded CSV reaches backend and changes rows",
-    "mobile no document overflow"
-  ],
-  "browser": "Installed Microsoft Edge via Playwright; built-in browser unavailable"
+    "synthetic identity and business_count=0 visible",
+    "1000-row overview visible",
+    "precomputed product/skin/scene filter changes the slice",
+    "metric opens exact highlighted source evidence",
+    "five completed layers visible",
+    "AI evaluation and real trend explicitly disabled",
+    "local operations are separated and enabled only with live backend",
+    "Supabase cloud sync is labeled not executed",
+    "mobile document has no horizontal overflow"
+  ]
 }

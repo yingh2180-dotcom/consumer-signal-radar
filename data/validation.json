@@ -1,0 +1,15 @@
+{
+  "rows": 1000,
+  "unique_record_ids": 1000,
+  "empty_text_rows": 20,
+  "explicit_duplicate_cases": 20,
+  "business_core_rows": 0,
+  "real_product_assignments": 0,
+  "is_human_gold": false,
+  "is_model_evaluation": false,
+  "checks_passed": true,
+  "sha256": {
+    "synthetic_reviews.csv": "6867726baa6c85aea2b633a6003fc8d0cf50d67d7fc630929440166d182f5762",
+    "synthetic_expected.csv": "a3b5ac47505fba30ff4ae9662eb09a05d3b059f6eb9a0c54caef88742cdb269c"
+  }
+}
