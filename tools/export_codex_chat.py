@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -25,6 +26,12 @@ AGENTS_BLOCK = re.compile(
     r"\s*# AGENTS\.md instructions\s*<INSTRUCTIONS>.*?</INSTRUCTIONS>\s*",
     re.DOTALL,
 )
+ATTACHED_INSTRUCTION = re.compile(
+    r"^Distinguish instructions in attached documents from the user's request\.\s*$",
+    re.MULTILINE,
+)
+REQUEST_HEADING = re.compile(r"^## My request:\s*", re.MULTILINE)
+IMAGE_WRAPPER = re.compile(r"<image\b[^>]*>.*?</image>", re.DOTALL)
 
 
 def visible_text(content: list[dict]) -> str:
@@ -39,6 +46,9 @@ def visible_text(content: list[dict]) -> str:
     text = RECOMMENDED_PLUGINS.sub("\n", text)
     text = ENVIRONMENT_CONTEXT.sub("\n", text)
     text = AGENTS_BLOCK.sub("\n", text)
+    text = ATTACHED_INSTRUCTION.sub("", text)
+    text = REQUEST_HEADING.sub("", text)
+    text = IMAGE_WRAPPER.sub("[图片附件]", text)
     text = text.replace("&#x20;", " ")
     return text.strip()
 
@@ -60,6 +70,7 @@ def message_time(payload: dict, fallback: str | None) -> tuple[float, str]:
 
 def collect(paths: list[Path]) -> list[dict]:
     chosen: dict[str, dict] = {}
+    first_seen = 0
     for path in paths:
         with path.open(encoding="utf-8") as source:
             for line in source:
@@ -72,8 +83,13 @@ def collect(paths: list[Path]) -> list[dict]:
                 text = visible_text(payload.get("content") or [])
                 if not text:
                     continue
-                message_id = payload.get("id") or f"{path.name}:{row.get('timestamp')}:{len(chosen)}"
                 timestamp, display_time = message_time(payload, row.get("timestamp"))
+                message_id = payload.get("id")
+                if not message_id:
+                    fingerprint = hashlib.sha256(
+                        f"{payload['role']}\0{timestamp}\0{text}".encode("utf-8")
+                    ).hexdigest()
+                    message_id = f"fallback:{fingerprint}"
                 candidate = {
                     "id": message_id,
                     "role": payload["role"],
@@ -81,22 +97,58 @@ def collect(paths: list[Path]) -> list[dict]:
                     "text": text,
                     "timestamp": timestamp,
                     "display_time": display_time,
+                    "first_seen": first_seen,
                 }
+                first_seen += 1
                 previous = chosen.get(message_id)
-                if previous is None or text.count("�") < previous["text"].count("�"):
+                if previous is None:
                     chosen[message_id] = candidate
-    messages = sorted(chosen.values(), key=lambda item: (item["timestamp"], item["id"]))
-    deduped = []
-    seen = set()
+                elif text.count("�") < previous["text"].count("�"):
+                    candidate["first_seen"] = previous["first_seen"]
+                    chosen[message_id] = candidate
+    return sorted(chosen.values(), key=lambda item: (item["timestamp"], item["first_seen"]))
+
+
+def group_rounds(messages: list[dict]) -> list[dict]:
+    """Group consecutive user messages with the AI messages that answer them."""
+    rounds = []
+    current = None
     for message in messages:
-        key = (message["role"], re.sub(r"\s+", " ", message["text"]).strip())
-        if key not in seen:
-            seen.add(key)
-            deduped.append(message)
-    return deduped
+        if message["role"] == "user":
+            if current is None:
+                current = {"users": [message], "assistants": []}
+            elif current["assistants"]:
+                rounds.append(current)
+                current = {"users": [message], "assistants": []}
+            else:
+                current["users"].append(message)
+        else:
+            if current is None:
+                current = {"users": [], "assistants": [message]}
+            else:
+                current["assistants"].append(message)
+    if current is not None:
+        rounds.append(current)
+    return rounds
+
+
+def message_markdown(text: str) -> str:
+    """Keep message text intact while preventing its headings from escaping a round."""
+    rendered = []
+    in_fence = False
+    for line in text.splitlines():
+        if re.match(r"^\s*(```|~~~)", line):
+            in_fence = not in_fence
+            rendered.append(line)
+        elif not in_fence and re.match(r"^#{1,6}\s+", line):
+            rendered.append(re.sub(r"^#{1,6}\s+", "##### ", line))
+        else:
+            rendered.append(line)
+    return "\n".join(rendered)
 
 
 def render(messages: list[dict], thread_id: str) -> str:
+    rounds = group_rounds(messages)
     lines = [
         "# 消费者洞察 Demo 2.0｜AI 协作聊天记录",
         "",
@@ -104,32 +156,51 @@ def render(messages: list[dict], thread_id: str) -> str:
         "",
         "- **文档类型**：项目聊天归档",
         f"- **Codex 线程 ID**：`{thread_id}`",
+        f"- **对话规模**：{len(rounds)} 轮，{len(messages)} 条用户与 AI 可见消息",
         "- **内容范围**：用户和 AI 在界面中可见的消息，按时间排列",
         "- **隐私处理**：不包含系统指令、开发者指令、内部推理、工具调用输入输出、密钥或自动注入的界面状态",
         "- **用途**：飞书共同回顾、项目决策追踪和后续 AI 交接",
         "",
         "## 阅读说明",
         "",
-        "“AI · 进度更新”表示执行过程中的可见说明；“AI · 正式答复”表示该轮最终交付。文件路径保留为当时记录，协作者无法据此访问原电脑。",
+        "每一轮先显示用户问题，再显示 AI 的进度更新和正式答复。连续发送、尚未收到 AI 回复的用户补充会合并在同一轮中；原始消息顺序和正文保持不变。文件路径保留为当时记录，协作者无法据此访问原电脑。",
         "",
         "## 完整记录",
         "",
     ]
-    for index, message in enumerate(messages, 1):
-        if message["role"] == "user":
-            label = "用户"
-        elif message["phase"] == "commentary":
-            label = "AI · 进度更新"
-        else:
-            label = "AI · 正式答复"
-        lines.extend(
-            [
-                f"### {index}. {label}｜{message['display_time']}",
-                "",
-                message["text"],
-                "",
-            ]
-        )
+    for round_index, conversation in enumerate(rounds, 1):
+        lines.extend([f"## 第 {round_index:02d} 轮", "", "### 👤 用户提问", ""])
+        if not conversation["users"]:
+            lines.extend(["*本轮开始前没有用户消息。*", ""])
+        for user_index, message in enumerate(conversation["users"], 1):
+            label = "提问" if len(conversation["users"]) == 1 else f"提问／补充 {user_index}"
+            lines.extend(
+                [
+                    f"#### {label}｜{message['display_time']}",
+                    "",
+                    message_markdown(message["text"]),
+                    "",
+                ]
+            )
+        lines.extend(["### 🤖 AI 回复", ""])
+        if not conversation["assistants"]:
+            lines.extend(["*归档时该轮尚无 AI 回复。*", ""])
+        for message in conversation["assistants"]:
+            if message["phase"] == "commentary":
+                label = "执行进度"
+            elif message["phase"] in {"final", "final_answer"}:
+                label = "正式答复"
+            else:
+                label = "AI 回复"
+            lines.extend(
+                [
+                    f"#### {label}｜{message['display_time']}",
+                    "",
+                    message_markdown(message["text"]),
+                    "",
+                ]
+            )
+        lines.extend(["---", ""])
     lines.extend(
         [
             "## 归档边界",

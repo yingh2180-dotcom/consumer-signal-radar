@@ -13,13 +13,13 @@
 
 本地流程和页面已经打通。前端、后端、数据、Supabase 草案、设计稿、测试结果和启动入口已迁移到 GitHub `codex/v2-rebuild` 分支的仓库根目录。1.0 由 `v1.0.0` 标签和 `release/1.x` 维护分支完整保留。
 
-GitHub 与飞书协作基础设施已经落地。`main`、`release/1.x`、`codex/v2-rebuild` 和 `v1.0.0` 均已推送到远端；2.0 已建立[草稿合并请求 #1](https://github.com/yingh2180-dotcom/consumer-signal-radar/pull/1)，尚未合并，因此 1.0 仍是当前正式主线。飞书已建立固定项目目录、聊天归档和“引用文档与附件”目录，后续项目讨论文档统一放入该位置。
+GitHub 与飞书协作基础设施已经落地。GitHub `main` 是当前正式 2.0 主线；`release/1.x` 只维护 1.0 的紧急问题；`codex/v2-rebuild` 保留 2.0 重构和审核过程。`v1.0.0` 与 `v2.0.0` 固定两个正式版本，并分别建立 GitHub Release。飞书已建立固定项目目录、聊天归档和“引用文档与附件”目录，后续项目讨论文档统一放入该位置。
 
 ### 1.1 已落地的协作入口
 
 | 对象 | 当前状态 | 可审核链接 |
 |---|---|---|
-| GitHub 2.0 | `codex/v2-rebuild` 已推送，草稿 PR 待审核 | [Pull Request #1](https://github.com/yingh2180-dotcom/consumer-signal-radar/pull/1) |
+| GitHub 2.0 | PR #1 自动检查通过并已合并，`main` 为当前正式 2.0 | [Pull Request #1](https://github.com/yingh2180-dotcom/consumer-signal-radar/pull/1) |
 | 飞书项目目录 | 已确认唯一目录“项目二消费者洞察” | [项目二消费者洞察](https://my.feishu.cn/drive/folder/GdsxfK8ryl257Wd9DlmcVvWtneg) |
 | 飞书聊天归档 | 已按开始日期、Agent 和聊天名称归档 | [2026-09-15-Codex-消费者洞察五层Demo](https://my.feishu.cn/docx/Fl2CdGSjUoS2JcxeXrncX21qnPb) |
 | 飞书引用文档 | 已创建标准附件目录，本计划作为在线文档存放 | [引用文档与附件](https://my.feishu.cn/drive/folder/TLKKfHca2l9UgFdHT8Lc6noqnOh) |
@@ -251,7 +251,7 @@ GitHub 与飞书协作基础设施已经落地。`main`、`release/1.x`、`codex
 
 ### 9.1 唯一正式工作目录
 
-后续 AI 必须把 GitHub `main`（合并前为 `codex/v2-rebuild`）的仓库根目录视为 2.0 的唯一正式代码目录。1.0 只能通过 `v1.0.0` 或 `release/1.x` 访问和维护，不得改写历史标签。
+后续 AI 必须把 GitHub `main` 的仓库根目录视为 2.0 的唯一正式代码目录。`codex/v2-rebuild` 只用于追溯本次重构审核过程；1.0 只能通过 `v1.0.0` 或 `release/1.x` 访问和维护，不得改写历史标签。
 
 关键文件如下：
 
