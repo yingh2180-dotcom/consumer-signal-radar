@@ -28,5 +28,6 @@ qa-results/
 # 编辑器与系统
 .vscode/
 .idea/
+.worktrees/
 .DS_Store
 Thumbs.db
