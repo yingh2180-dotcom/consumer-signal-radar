@@ -1,0 +1,22 @@
+Use case: ui-mockup. Create one complete, crisp, readable high fidelity desktop web app main screen concept, image size 1440x1000, Chinese consumer insights sample analysis workbench, front-facing flat screenshot, no browser chrome. This is a DESIGN PREVIEW, not real analytical output. All UI must be practical code-native typography, buttons, panels and tables. Do not implement or write frontend code.
+
+VISUAL SYSTEM: understated professional analytics product, compact but spacious enough to read. Existing design colors precisely: outer background #f5f7f9; white surfaces #ffffff; text #122239; secondary #647386; accent teal #008d95; selected pale teal #eaf7f7; subtle borders #dce2e8. Inter and Microsoft YaHei/PingFang SC style sans serif. Left sidebar 230px, topbar height 60px, main padding 28px. White panels with thin lines, 8px corners, virtually no shadows. Heading 28px, section headings 18px, body 14px, small labels 12px. Refined alignment, understated line icons only. No photographs, illustrations, product packaging or logos of real brands. No hero or marketing design, no giant heading, no gradients.
+
+LAYOUT and EXACT CHINESE COPY:
+LEFT sidebar fills height, near-white. Top simple small teal line chart mark plus "消费者洞察", secondary "Demo MVP". Four entries with simple line icons: selected "样本洞察", then "五层流程", "证据浏览", "质量与说明". Bottom two simple lines "规则演示" and "AI 模型尚未启用".
+TOPBAR across remaining width left "合成样本 · 流程演示"; right small "运行模式：规则演示" and "设计预览".
+MAIN title row "样本洞察", subline "查看合成评论的主题、切片与原文证据". Right discreet "查看五层流程 →" teal text button.
+Below is one horizontal filter bar: label "演示产品" and segmented control with "全部" selected teal then "产品 A", "产品 B", "产品 C". On right "肤质：全部⌄" and "场景：全部⌄" as compact selects.
+Below a white continuous SUMMARY STRIP with five clean columns separated by vertical faint lines: "原始记录" value "1000"; "有效记录" value "—"; "待审核" value "—"; "真实业务样本" value "0"; "最新快照" value "—". Under strip in tiny but readable text "设计预览中的「—」为占位，实际指标由处理结果生成。"
+
+MAIN CONTENT FITS ENTIRELY within full 1000px image. Two columns near equal, gap20.
+First row panels about 245px tall:
+LEFT panel title "痛点与优点". Compact tab row "负向观点" selected and "正向观点". Render four table-like rows "使用体验", "功效", "价格", "包装". Columns "主题" "提及数" "样本量 n" "提及率" with EVERY numeric value being "—". If chart lanes are shown, only UNIFORM LIGHT GRAY empty tracks, no filled bars of different lengths. Bottom small "点击主题查看原文证据".
+RIGHT panel title "产品 × 主题". Subline "合成样本提及率 · 结构示意". A polished heatmap-shaped matrix table with column headings "使用体验" "功效" "价格" "包装" and row headings "产品 A", "产品 B", "产品 C". Every cell neutral equally light gray/very pale teal, with "—" centered; NO varied saturation implying actual metrics. Bottom "样本量 n：—    指标与证据可追溯".
+Second row panels about 190px tall:
+LEFT panel "肤质与场景". Small tabs "肤质" selected, "使用场景". Four clean horizontal rows "干皮", "油皮", "混合皮", "未说明", right values all "—", simple fine dividers. Footnote "仅依据原文明示信息，缺失单独保留".
+RIGHT panel "研究候选". Subline "事实 → 模式 → 假设 → 验证". A thin teal left border and two lines "候选内容待处理结果生成" and "需由原文证据支持，不构成真实消费者结论". Bottom small teal text action "查看证据 →".
+Bottom full width short panel about105px: title "趋势", next to muted status "无法计算"; sentence "当前样本缺少真实发布时间，暂不展示趋势。" Show no axes and no trend line. Use subtle simple calendar outline if needed.
+Small footer line "全部数据为合成样本，仅用于演示处理与证据追溯流程。"
+
+HARD REQUIREMENTS: all entire screen visible, no cropping, no extra pages, no browser chrome, no dense unreadable text. Preserve exact navigation. Do not invent any data numbers other than 1000 raw and 0 business. No percentages, no growth line, no fake accuracy, no market share, no severity score, no real brand mappings, no timestamps. Dashes truly mean unavailable preview values. Despite placeholders, look like a polished finished analytical product design with visible information hierarchy.

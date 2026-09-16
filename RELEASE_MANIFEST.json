@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "snapshot_id": "SNAP-20260916T083721-87f51b544f",
+  "run_id": "20260916T083721-87f51b544f",
+  "dataset_id": "SYN-20260915-v1",
+  "raw_count": 1000,
+  "kept_count": 960,
+  "filtered_count": 40,
+  "feature_count": 980,
+  "business_count": 0,
+  "slices": 140,
+  "cloud_connected": false,
+  "public_deployed": false,
+  "file_count": 52,
+  "bytes": 4787387,
+  "generated_at": "2026-09-16T17:02:40.561833Z"
+}
