@@ -4,7 +4,7 @@
 
 - **新增文档**：`docs/20_Demo_2.0当前完成情况与后续执行计划.md`
 - **配套 Word**：`docs/20_Demo_2.0当前完成情况与后续执行计划.docx`
-- **内容范围**：截至 2026 年 9 月 16 日的已完成工作、验证证据、未完成事项和后续执行步骤
+- **内容范围**：截至 2026 年 9 月 17 日的已完成工作、验证证据、未完成事项和后续执行步骤
 - **适用版本**：消费者洞察 Demo 2.0
 
 ## 一 当前结论
@@ -12,6 +12,17 @@
 消费者洞察 Demo 2.0 已完成本地可运行的 MVP。MVP 指能够证明核心流程成立的最小可用版本。当前版本已经把 1000 条原创合成美妆评论从原始输入依次处理为清洗结果、观点特征、指标与研究候选，再组装为可以点击和追溯证据的网页。
 
 本地流程和页面已经打通。前端、后端、数据、Supabase 草案、设计稿、测试结果和启动入口已迁移到 GitHub `codex/v2-rebuild` 分支的仓库根目录。1.0 由 `v1.0.0` 标签和 `release/1.x` 维护分支完整保留。
+
+GitHub 与飞书协作基础设施已经落地。`main`、`release/1.x`、`codex/v2-rebuild` 和 `v1.0.0` 均已推送到远端；2.0 已建立[草稿合并请求 #1](https://github.com/yingh2180-dotcom/consumer-signal-radar/pull/1)，尚未合并，因此 1.0 仍是当前正式主线。飞书已建立固定项目目录、聊天归档和“引用文档与附件”目录，后续项目讨论文档统一放入该位置。
+
+### 1.1 已落地的协作入口
+
+| 对象 | 当前状态 | 可审核链接 |
+|---|---|---|
+| GitHub 2.0 | `codex/v2-rebuild` 已推送，草稿 PR 待审核 | [Pull Request #1](https://github.com/yingh2180-dotcom/consumer-signal-radar/pull/1) |
+| 飞书项目目录 | 已确认唯一目录“项目二消费者洞察” | [项目二消费者洞察](https://my.feishu.cn/drive/folder/GdsxfK8ryl257Wd9DlmcVvWtneg) |
+| 飞书聊天归档 | 已按开始日期、Agent 和聊天名称归档 | [2026-09-15-Codex-消费者洞察五层Demo](https://my.feishu.cn/docx/Fl2CdGSjUoS2JcxeXrncX21qnPb) |
+| 飞书引用文档 | 已创建标准附件目录，本计划作为在线文档存放 | [引用文档与附件](https://my.feishu.cn/drive/folder/TLKKfHca2l9UgFdHT8Lc6noqnOh) |
 
 当前还没有连接真实 Supabase 项目，也没有发布到互联网。这两项会改变外部服务状态，需要用户指定项目和发布对象后执行。当前使用的全部数据都是合成样本，真实业务样本为 0，页面指标不能解释为珀莱雅真实消费者结论。
 

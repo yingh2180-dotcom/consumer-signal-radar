@@ -6,6 +6,7 @@
 - **适用项目**：消费者洞察 Demo 1.0 / 2.0
 - **GitHub 仓库**：`yingh2180-dotcom/consumer-signal-radar`
 - **飞书固定位置**：`云盘 / 学习笔记 / 简历项目 / 项目二消费者洞察`
+- **飞书项目链接**：<https://my.feishu.cn/drive/folder/GdsxfK8ryl257Wd9DlmcVvWtneg>
 
 ## 1. 版本结构
 
@@ -35,8 +36,9 @@ v2.0.0             2.0 正式发布后创建
 
 当前优先归档：
 
-1. `Demo 2.0 当前完成情况与后续执行计划`，导入为可共同编辑的飞书在线文档。
-2. `消费者洞察 Demo 2.0｜完整 AI 协作聊天记录`，以 Markdown 内容导入为飞书在线文档。
+1. [Demo 2.0 当前完成情况与后续执行计划](https://my.feishu.cn/docx/CdHEd9r86oAHPRxzyoFcalBgnlg)，已导入为飞书在线文档。
+2. [2026-09-15-Codex-消费者洞察五层Demo](https://my.feishu.cn/docx/Fl2CdGSjUoS2JcxeXrncX21qnPb)，已按参考手册从 Markdown 导入为飞书在线文档。
+3. [引用文档与附件](https://my.feishu.cn/drive/folder/TLKKfHca2l9UgFdHT8Lc6noqnOh)，保存聊天中使用和生成的正式材料。
 
 ## 4. 协作流程
 
